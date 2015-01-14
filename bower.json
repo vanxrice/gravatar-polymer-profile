@@ -8,9 +8,11 @@
   "description": "A Polymer element that fetches a gravatar profile as JSON and displays",
   "keywords": [
     "Polymer",
+    "web-component",
     "web-components",
     "gravatar"
   ],
+  "main": "gravatar-polymer-profile.html",
   "license": "Apache License v2.0",
   "ignore": [
     "**/.*",
@@ -20,6 +22,14 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "~0.5.2"
+    "polymer": "~0.5.2",
+    "polymer-jsonp": "Polymer/polymer-jsonp#~0.3.0",
+    "paper-spinner": "Polymer/paper-spinner#~0.5.2",
+    "core-image": "Polymer/core-image#~0.5.2",
+    "core-field": "Polymer/core-field#~0.5.0",
+    "font-roboto": "Polymer/font-roboto#~0.5.2"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.0.5"
   }
 }

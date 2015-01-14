@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.default {
+  font-family: 'RobotoDraft';
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2em;
+  margin: 15px;
+}
+
+#container {
+  margin: 20px;
+}

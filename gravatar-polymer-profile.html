@@ -1,0 +1,76 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../core-image/core-image.html">
+<link rel="import" href="../core-field/core-field.html">
+<link rel="import" href="../font-roboto/roboto.html">
+
+<!--
+This is a profile element that can fetch from Gravatar.
+
+##### Example
+
+    <gravatar-polymer-profile hash="{{hash}}"></gravatar-polymer-profile>
+
+@element gravatar-polymer-profile
+@blurb This is a profile element that can fetch from Gravatar.
+@status alpha
+@homepage https://github.com/vanxrice/gravatar-polymer-profile
+-->
+
+<polymer-element name="gravatar-polymer-profile" attributes="hash">
+
+  <template is="auto binding">
+
+    <link rel="stylesheet" href="gravatar-polymer-profile.css">
+
+    <polymer-jsonp auto handleAs="json" response="{{response}}"
+      url="https://en.gravatar.com/{{hash}}.json?callback="
+      on-polymer-response="{{onResponse}}"></polymer-jsonp>
+
+    <core-field id="container">
+      <core-field>
+        <paper-spinner active style="width: 125px; height: 125px;"></paper-spinner>
+
+        <core-image sizing="cover" fade src="{{profileImgSrc}}"
+          style="width: 80px; height: 80px; background-color: lightgray;
+            border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"></core-image>
+
+        <div class="default">{{displayName}}</div>
+      </core-field>
+    </core-field>
+    
+    <content></content>
+
+  </template>
+
+  <script>
+
+    Polymer('gravatar-polymer-profile', {
+      /**
+       * The `hash` attribute sets the Gravatar hash to fetch, which is just an md5 of the desired email address. See: http://en.gravatar.com/site/implement/hash/
+       *
+       * @attribute hash
+       * @type string
+       * @default ''
+       */
+      hash: '',
+
+      onResponse: function(e) {
+        var json = e.detail.response;
+        if (json['entry']) {
+          if (json['entry'][0]) {
+            // remove spinner
+            var spinner = this.shadowRoot.querySelector('paper-spinner');
+            spinner.remove();
+            this.displayName = json['entry'][0]['displayName'];
+            this.profileImgSrc = json['entry'][0]['photos'][0]['value'];
+          }
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
