@@ -1,6 +1,7 @@
 <link rel="import" href="../core-icon/core-icon.html">
 <link rel="import" href="../core-icons/image-icons.html">
 <link rel="import" href="../core-icons/social-icons.html">
+<link rel="import" href="../core-icons/maps-icons.html">
 <link rel="import" href="../core-image/core-image.html">
 <link rel="import" href="../font-roboto/roboto.html">
 <link rel="import" href="../paper-button/paper-button.html">
@@ -45,14 +46,15 @@ This is a profile element that can fetch from Gravatar.
 
         <div vertical layout>
           <div class="header-font" if="{{displayName}}">{{displayName}}</div>
-          <div class="header-detail-font" if="{{currentLocation}}">{{currentLocation}}</div>
+          <div class="header-detail-font" if="{{currentLocation}}">
+            <core-icon icon="maps:pin-drop"></core-icon>{{currentLocation}}</div>
           <div class="header-detail-font" if="{{aboutMe}}">{{aboutMe}}</div>
         </div>
       </div>
 
       <div id="profiles" horizontal layout wrap>
         <template id="profile-tmpl" repeat="{{accounts}}">
-          <a href="{{url || value}}">
+          <a vertical layout wrap href="{{url || value}}">
             <paper-button raised>
             <!-- Gravatar officially supported and verified sites -->
               <template if="{{domain == 'linkedin.com'}}">
