@@ -32,5 +32,9 @@
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.0.5"
+  },
+  "resolutions": {
+    "polymer": "~0.5.2",
+    "core-component-page": "^0.5.0"
   }
 }
