@@ -2,14 +2,28 @@
   display: block;
 }
 
-.default {
-  font-family: 'RobotoDraft';
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1.2em;
-  margin: 15px;
+#container {
+  padding: 10px;
 }
 
-#container {
-  margin: 20px;
+.header-font {
+  font-family: 'RobotoDraft';
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.2em;
+}
+
+.header-detail-font {
+  font-family: 'RobotoDraft';
+  font-size: 1.2em;
+  font-weight: 400;
+  line-height: 1.2em;
+}
+
+#profile-header {
+  margin-bottom: 10px;
+}
+
+#profiles {
+  margin-bottom: 10px;
 }

@@ -1,9 +1,12 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
-<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../core-icon/core-icon.html">
+<link rel="import" href="../core-icons/image-icons.html">
+<link rel="import" href="../core-icons/social-icons.html">
 <link rel="import" href="../core-image/core-image.html">
-<link rel="import" href="../core-field/core-field.html">
 <link rel="import" href="../font-roboto/roboto.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
+<link rel="import" href="../polymer/polymer.html">
 
 <!--
 This is a profile element that can fetch from Gravatar.
@@ -18,7 +21,7 @@ This is a profile element that can fetch from Gravatar.
 @homepage https://github.com/vanxrice/gravatar-polymer-profile
 -->
 
-<polymer-element name="gravatar-polymer-profile" attributes="hash">
+<polymer-element name="gravatar-polymer-profile" attributes="hash" horizontal layout>
 
   <template is="auto binding">
 
@@ -28,19 +31,81 @@ This is a profile element that can fetch from Gravatar.
       url="https://en.gravatar.com/{{hash}}.json?callback="
       on-polymer-response="{{onResponse}}"></polymer-jsonp>
 
-    <core-field id="container">
-      <core-field>
+    <div id="container" style="background-color: {{profileBackgroundColor}};" vertical>
+      <div id="profile-header" horizontal wrap justified layout>
         <paper-spinner active style="width: 125px; height: 125px;"></paper-spinner>
 
-        <core-image sizing="cover" fade src="{{profileImgSrc}}"
+        <template if="{{profileImgSrc}}">
+          <core-image sizing="cover" fade src="{{profileImgSrc}}"
           style="width: 80px; height: 80px; background-color: lightgray;
             border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"></core-image>
+        </template>
 
-        <div class="default">{{displayName}}</div>
-      </core-field>
-    </core-field>
+        <span flex></span>
+
+        <div right vertical layout>
+          <div class="header-font" if="{{displayName}}">{{displayName}}</div>
+          <div class="header-detail-font" if="{{currentLocation}}">{{currentLocation}}</div>
+        </div>
+      </div>
+
+      <div id="profiles" horizontal wrap justified layout>
+        <template id="profile-tmpl" repeat="{{accounts}}">
+          <a href="{{url || value}}">
+            <paper-button raised>
+            <!-- Gravatar officially supported and verified sites -->
+              <template if="{{domain == 'linkedin.com'}}">
+                  <core-icon icon="social:post-linkedin"></core-icon>
+              </template>
+              <template if="{{domain == 'profiles.google.com' || domain == 'plus.google.com'}}">
+                <core-icon icon="social:post-gplus"></core-icon>
+              </template>
+              <template if="{{domain == 'blogger.com'}}">
+                <core-icon icon="social:post-blogger"></core-icon>
+              </template>
+              <template if="{{domain == 'twitter.com'}}">
+                <core-icon icon="social:post-twitter"></core-icon>
+                <template if"{{username}}">
+                  <span>@{{username}}</span>
+                </template>
+              </template>
+              <template if="{{domain == 'facebook.com'}}">
+                <core-icon icon="social:post-facebook"></core-icon>
+              </template>
+              <template if="{{domain == 'youtube.com'}}">
+                <core-icon icon="social:post-youtube"></core-icon>
+              </template>
+              <template if="{{domain == 'instagram.com'}}">
+                <core-icon icon="social:post-instagram"></core-icon>
+              </template>
+              <template if="{{domain == 'flickr.com'}}">
+                <core-icon icon="image:collections"></core-icon>
+              </template>
+              <template if="{{domain == 'goodreads.com'}}">
+                <core-icon icon="book"></core-icon>
+              </template>
+              <template if="{{domain == 'tumblr.com'}}">
+                <core-icon icon="social:post-tumblr"></core-icon>
+              </template>
+              <template if="{{domain == 'vimeo.com'}}">
+                <core-icon icon="image:movie-creation"></core-icon>
+              </template>
+              <!-- TODO foursquare -->
+              <!-- TODO Tripit -->
+              <!-- TODO Wordpress -->
+              <!-- TODO Yahoo! -->
+
+              <!-- Custom sites, I use title attribute to determine the icon to use, in this case the value attribute is used as the referenced URL. -->
+              <template if="{{title == 'github.com'}}">
+                <core-icon icon="social:post-github"></core-icon>
+              </template>
+            </paper-button>
+          </a>
+        </template>
+      </div>
     
-    <content></content>
+      <content></content>
+    </div>
 
   </template>
 
@@ -58,13 +123,52 @@ This is a profile element that can fetch from Gravatar.
 
       onResponse: function(e) {
         var json = e.detail.response;
-        if (json['entry']) {
-          if (json['entry'][0]) {
-            // remove spinner
-            var spinner = this.shadowRoot.querySelector('paper-spinner');
-            spinner.remove();
-            this.displayName = json['entry'][0]['displayName'];
-            this.profileImgSrc = json['entry'][0]['photos'][0]['value'];
+        if (json) {
+          var entry = json['entry'];
+          if (entry) {
+            var entry = entry[0];
+            if (entry) {
+              // remove spinner
+              var spinner = this.shadowRoot.querySelector('paper-spinner');
+              spinner.remove();
+
+              if (entry['displayName']) {
+                this.displayName = entry['displayName'];
+              }
+
+              if (entry['currentLocation']) {
+                this.currentLocation = entry['currentLocation'];
+              }
+
+              if (entry['photos'] && entry['photos'][0] && entry['photos'][0]['value']) {
+                this.profileImgSrc = entry['photos'][0]['value'];
+              }
+
+              if (entry['profileBackground']) {
+                if (entry['profileBackground']['color']) {
+                  this.profileBackgroundColor = entry['profileBackground']['color'];
+                }
+              }
+
+              if (entry['accounts']) {
+                this.accounts = entry['accounts'];
+              }
+              if (entry['urls']) {
+                this.accounts = this.accounts.concat(entry['urls']);
+              }
+              this.accounts.sort(function(x, y) {
+                var x1, y1;
+                x1 = x.domain || x.title;
+                y1 = y.domain || y.title;
+                if (x1 < y1) {
+                    return -1;
+                }
+                if (x1 > y1) {
+                    return 1;
+                }
+                return 0;
+              });
+            }
           }
         }
       }

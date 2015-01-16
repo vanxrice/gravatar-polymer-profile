@@ -26,8 +26,9 @@
     "polymer-jsonp": "Polymer/polymer-jsonp#~0.3.0",
     "paper-spinner": "Polymer/paper-spinner#~0.5.2",
     "core-image": "Polymer/core-image#~0.5.2",
-    "core-field": "Polymer/core-field#~0.5.0",
-    "font-roboto": "Polymer/font-roboto#~0.5.2"
+    "font-roboto": "Polymer/font-roboto#~0.5.2",
+    "core-icon": "Polymer/core-icon#~0.5.2",
+    "paper-button": "Polymer/paper-button#~0.5.2"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.0.5"
