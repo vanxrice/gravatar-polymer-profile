@@ -43,13 +43,14 @@ This is a profile element that can fetch from Gravatar.
 
         <span flex></span>
 
-        <div right vertical layout>
+        <div vertical layout>
           <div class="header-font" if="{{displayName}}">{{displayName}}</div>
           <div class="header-detail-font" if="{{currentLocation}}">{{currentLocation}}</div>
+          <div class="header-detail-font" if="{{aboutMe}}">{{aboutMe}}</div>
         </div>
       </div>
 
-      <div id="profiles" horizontal wrap justified layout>
+      <div id="profiles" horizontal layout wrap>
         <template id="profile-tmpl" repeat="{{accounts}}">
           <a href="{{url || value}}">
             <paper-button raised>
@@ -140,8 +141,12 @@ This is a profile element that can fetch from Gravatar.
                 this.currentLocation = entry['currentLocation'];
               }
 
-              if (entry['photos'] && entry['photos'][0] && entry['photos'][0]['value']) {
-                this.profileImgSrc = entry['photos'][0]['value'];
+              if (entry['thumbnailUrl']) {
+                this.profileImgSrc = entry['thumbnailUrl'];
+              }
+
+              if (entry['aboutMe']) {
+                this.aboutMe = entry['aboutMe'];
               }
 
               if (entry['profileBackground']) {
