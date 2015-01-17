@@ -1,23 +1,42 @@
 :host {
   display: block;
+  font-family: 'RobotoDraft';
+}
+
+paper-icon-button {
+  color: black;
+  vertical-align: middle;
+}
+
+paper-icon-button:hover {
+  color: #666666;
+  background: #eee;
+  border-radius: 50%;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 150px;
+  -webkit-border-radius: 150px;
+  -moz-border-radius: 150px;
 }
 
 #container {
-  padding: 10px;
+  padding: 10px 10px 0 10px;
 }
 
-.header-font {
-  font-family: 'RobotoDraft';
-  font-size: 2em;
-  font-weight: bold;
-  line-height: 1.2em;
+#aboutMeButton {
+  width: 35%;
+  height: 40px;
+  font-size: 0.8em;
+  margin-top: 10px;
+  text-transform: inherit;
 }
 
-.header-detail-font {
-  font-family: 'RobotoDraft';
-  font-size: 1.2em;
-  font-weight: 400;
-  line-height: 1.2em;
+#maps-icon {
+  width: 18px;
+  height: 18px;
 }
 
 #profile-header {
@@ -26,4 +45,23 @@
 
 #profiles {
   margin-bottom: 10px;
+}
+
+#profile-details {
+  margin-left: 10px;
+}
+
+.header-font {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.header-detail-font {
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.profiles-link > paper-icon-button /deep/ core-icon[role=img] {
+  height: 80px;
+  width: 80px;
 }

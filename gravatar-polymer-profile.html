@@ -1,10 +1,14 @@
+<link rel="import" href="../core-collapse/core-collapse.html">
 <link rel="import" href="../core-icon/core-icon.html">
+<link rel="import" href="../core-icons/core-icons.html">
 <link rel="import" href="../core-icons/image-icons.html">
-<link rel="import" href="../core-icons/social-icons.html">
 <link rel="import" href="../core-icons/maps-icons.html">
+<link rel="import" href="../core-icons/social-icons.html">
 <link rel="import" href="../core-image/core-image.html">
 <link rel="import" href="../font-roboto/roboto.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
 <link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
 <link rel="import" href="../polymer/polymer.html">
@@ -32,66 +36,78 @@ This is a profile element that can fetch from Gravatar.
       url="https://en.gravatar.com/{{hash}}.json?callback="
       on-polymer-response="{{onResponse}}"></polymer-jsonp>
 
-    <div id="container" style="background-color: {{profileBackgroundColor}};" vertical>
-      <div id="profile-header" horizontal wrap justified layout>
-        <paper-spinner active style="width: 125px; height: 125px;"></paper-spinner>
+    <paper-shadow z="3">
 
-        <template if="{{profileImgSrc}}">
-          <core-image sizing="cover" fade src="{{profileImgSrc}}"
-          style="width: 80px; height: 80px; background-color: lightgray;
-            border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;"></core-image>
-        </template>
+      <div id="container" style="background-color: {{profileBackgroundColor}}; width: 375px;" vertical>
+        <div id="profile-header" horizontal wrap justified layout>
 
-        <span flex></span>
+          <paper-spinner active></paper-spinner>
 
-        <div vertical layout>
-          <div class="header-font" if="{{displayName}}">{{displayName}}</div>
-          <div class="header-detail-font" if="{{currentLocation}}">
-            <core-icon icon="maps:pin-drop"></core-icon>{{currentLocation}}</div>
-          <div class="header-detail-font" if="{{aboutMe}}">{{aboutMe}}</div>
+          <template if="{{profileImgSrc}}">
+            <paper-shadow id="profileImgShadow" class="profile-img" on-tap="{{profileImgAnimate}}" z="0">
+              <core-image sizing="cover" fade src="{{profileImgSrc}}" class="profile-img"></core-image>
+            </paper-shadow>
+          </template>
+
+          <div id="profile-details" flex vertical layout>
+            <div flex horizontal end-justified end layout>
+              <div flex class="header-font" if="{{displayName}}">{{displayName}}</div>
+
+              <template if="{{aboutMe}}">
+                <paper-button id="aboutMeButton" raised noink class="header-detail-font" on-click="{{toggleCollapse}}">
+                  <div flex>About Me</div>
+                  <core-icon id="aboutMeCollapseIcon" icon="expand-more"></core-icon>
+                </paper-button>
+              </template>
+            </div>
+
+            <template if="{{currentLocation}}">
+              <div class="header-detail-font" if="{{currentLocation}}">
+                <core-icon id="maps-icon" icon="maps:pin-drop"></core-icon>
+                {{currentLocation}}
+              </div>
+            </template>
+          </div>
         </div>
-      </div>
 
-      <div id="profiles" horizontal layout wrap>
-        <template id="profile-tmpl" repeat="{{accounts}}">
-          <a vertical layout wrap href="{{url || value}}">
-            <paper-button raised>
-            <!-- Gravatar officially supported and verified sites -->
+        <core-collapse id="aboutMeCollapse" class="header-detail-font">{{aboutMe}}</core-collapse>
+
+        <div id="profiles" horizontal around-justified layout wrap>
+          <template id="profile-tmpl" repeat="{{accounts}}">
+            <a href="{{url || value}}" class="profiles-link">
+              <!-- Gravatar officially supported and verified sites -->
               <template if="{{domain == 'linkedin.com'}}">
-                  <core-icon icon="social:post-linkedin"></core-icon>
+                  <paper-icon-button icon="social:post-linkedin"></core-icon>
               </template>
               <template if="{{domain == 'profiles.google.com' || domain == 'plus.google.com'}}">
-                <core-icon icon="social:post-gplus"></core-icon>
+                <paper-icon-button icon="social:post-gplus"></paper-icon-button>
               </template>
               <template if="{{domain == 'blogger.com'}}">
-                <core-icon icon="social:post-blogger"></core-icon>
+                <paper-icon-button icon="social:post-blogger"></paper-icon-button>
               </template>
               <template if="{{domain == 'twitter.com'}}">
-                <core-icon icon="social:post-twitter"></core-icon>
-                <template if"{{username}}">
-                  <span>@{{username}}</span>
-                </template>
+                <paper-icon-button icon="social:post-twitter"></paper-icon-button>
               </template>
               <template if="{{domain == 'facebook.com'}}">
-                <core-icon icon="social:post-facebook"></core-icon>
+                <paper-icon-button icon="social:post-facebook"></paper-icon-button>
               </template>
               <template if="{{domain == 'youtube.com'}}">
-                <core-icon icon="social:post-youtube"></core-icon>
+                <paper-icon-button icon="social:post-youtube"></paper-icon-button>
               </template>
               <template if="{{domain == 'instagram.com'}}">
-                <core-icon icon="social:post-instagram"></core-icon>
+                <paper-icon-button icon="social:post-instagram"></paper-icon-button>
               </template>
               <template if="{{domain == 'flickr.com'}}">
-                <core-icon icon="image:collections"></core-icon>
+                <paper-icon-button icon="image:collections"></paper-icon-button>
               </template>
               <template if="{{domain == 'goodreads.com'}}">
-                <core-icon icon="book"></core-icon>
+                <paper-icon-button icon="book"></paper-icon-button>
               </template>
               <template if="{{domain == 'tumblr.com'}}">
-                <core-icon icon="social:post-tumblr"></core-icon>
+                <paper-icon-button icon="social:post-tumblr"></paper-icon-button>
               </template>
               <template if="{{domain == 'vimeo.com'}}">
-                <core-icon icon="image:movie-creation"></core-icon>
+                <paper-icon-button icon="image:movie-creation"></paper-icon-button>
               </template>
               <!-- TODO foursquare -->
               <!-- TODO Tripit -->
@@ -100,15 +116,15 @@ This is a profile element that can fetch from Gravatar.
 
               <!-- Custom sites, I use title attribute to determine the icon to use, in this case the value attribute is used as the referenced URL. -->
               <template if="{{title == 'github.com'}}">
-                <core-icon icon="social:post-github"></core-icon>
+                <paper-icon-button icon="social:post-github"></paper-icon-button>
               </template>
-            </paper-button>
-          </a>
-        </template>
-      </div>
-    
-      <content></content>
+            </a>
+          </template>
+        </div>
+      
+        <content></content>
     </div>
+  </paper-shadow>
 
   </template>
 
@@ -123,6 +139,31 @@ This is a profile element that can fetch from Gravatar.
        * @default ''
        */
       hash: '',
+
+      toggleCollapse: function() {
+        this.$.aboutMeCollapse.toggle();
+        var coreIcon = this.$.aboutMeCollapseIcon;
+        if (coreIcon.icon == 'expand-less') {
+          coreIcon.icon = 'expand-more';
+        } else {
+          coreIcon.icon = 'expand-less';
+        }
+      },
+
+      profileImgAnimate: function(e) { // TODO consider removing, set z=3
+        var profileShadow = this.shadowRoot.querySelector('#profileImgShadow');
+        if (!profileShadow.down) {
+          profileShadow.setZ(profileShadow.z + 1);
+          if (profileShadow.z === 5) {
+            profileShadow.down = true;
+          }
+        } else {
+          profileShadow.setZ(profileShadow.z - 1);
+          if (profileShadow.z === 0) {
+            profileShadow.down = false;
+          }
+        }
+      },
 
       onResponse: function(e) {
         var json = e.detail.response;
