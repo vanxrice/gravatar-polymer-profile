@@ -28,7 +28,7 @@
     "font-roboto": "Polymer/font-roboto#~0.5.2",
     "paper-button": "Polymer/paper-button#~0.5.2",
     "paper-spinner": "Polymer/paper-spinner#~0.5.2",
-    "polymer": "~0.5.2",
+    "polymer": "Polymer/polymer#^0.5.1",
     "polymer-jsonp": "Polymer/polymer-jsonp#~0.3.0",
     "paper-icon-button": "Polymer/paper-icon-button#~0.5.2"
   },
