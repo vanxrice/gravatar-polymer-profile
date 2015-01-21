@@ -9,15 +9,24 @@
   font-family: 'RobotoDraft', sans-serif;
 }
 
-paper-icon-button {
+paper-fab {
   color: black;
+  background-color: white;
   vertical-align: middle;
+  height: 90px;
+  width: 90px;
+  margin: 0 5px 0 5px;
 }
 
-paper-icon-button:hover {
+paper-fab:hover {
   color: #666666;
   background: #eee;
   border-radius: 50%;
+}
+
+.profiles-link > paper-fab /deep/ core-icon[role=img] {
+  height: 100%;
+  width: 100%;
 }
 
 .profile-header {
@@ -38,7 +47,7 @@ paper-icon-button:hover {
 }
 
 .profiles {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .aboutMeButton {
@@ -57,15 +66,14 @@ paper-icon-button:hover {
   width: 20px;
 }
 
+#aboutMeCollapse {
+  margin: 0 10px 0 10px;
+}
+
 .maps-icon {
   width: 26px;
   height: 26px;
   margin-right: 5px;
-}
-
-.profiles-link > paper-icon-button /deep/ core-icon[role=img] {
-  height: 80px;
-  width: 80px;
 }
 
 .text-display-4 {

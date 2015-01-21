@@ -9,7 +9,7 @@
 <link rel="import" href="../font-roboto/roboto.html">
 
 <link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
 <link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
@@ -44,7 +44,7 @@ This is a profile element that can fetch from Gravatar.
       <div style="background-color: {{profileBackgroundColor}};">
         <paper-spinner active></paper-spinner>
 
-        <paper-button horizontal layout center disabled id="aboutMe" class="aboutMeButton text-button" raised noink on-click="{{toggleCollapse}}">
+        <paper-button horizontal layout center disabled id="aboutMe" class="aboutMeButton" raised noink on-click="{{toggleCollapse}}">
           <div flex>About Me</div>
           <core-icon id="aboutMeIcon" icon="expand-more"></core-icon>
         </paper-button>
@@ -74,37 +74,37 @@ This is a profile element that can fetch from Gravatar.
             <a href="{{url || value}}" class="profiles-link">
               <!-- Gravatar officially supported and verified sites -->
               <template if="{{domain == 'linkedin.com'}}">
-                  <paper-icon-button icon="social:post-linkedin"></core-icon>
+                  <paper-fab raised icon="social:post-linkedin"></core-icon>
               </template>
               <template if="{{domain == 'profiles.google.com' || domain == 'plus.google.com'}}">
-                <paper-icon-button icon="social:post-gplus"></paper-icon-button>
+                <paper-fab raised icon="social:post-gplus"></paper-fab>
               </template>
               <template if="{{domain == 'blogger.com'}}">
-                <paper-icon-button icon="social:post-blogger"></paper-icon-button>
+                <paper-fab raised icon="social:post-blogger"></paper-fab>
               </template>
               <template if="{{domain == 'twitter.com'}}">
-                <paper-icon-button icon="social:post-twitter"></paper-icon-button>
+                <paper-fab raised icon="social:post-twitter"></paper-fab>
               </template>
               <template if="{{domain == 'facebook.com'}}">
-                <paper-icon-button icon="social:post-facebook"></paper-icon-button>
+                <paper-fab raised icon="social:post-facebook"></paper-fab>
               </template>
               <template if="{{domain == 'youtube.com'}}">
-                <paper-icon-button icon="social:post-youtube"></paper-icon-button>
+                <paper-fab raised icon="social:post-youtube"></paper-fab>
               </template>
               <template if="{{domain == 'instagram.com'}}">
-                <paper-icon-button icon="social:post-instagram"></paper-icon-button>
+                <paper-fab raised icon="social:post-instagram"></paper-fab>
               </template>
               <template if="{{domain == 'flickr.com'}}">
-                <paper-icon-button icon="image:collections"></paper-icon-button>
+                <paper-fab raised icon="image:collections"></paper-fab>
               </template>
               <template if="{{domain == 'goodreads.com'}}">
-                <paper-icon-button icon="book"></paper-icon-button>
+                <paper-fab raised icon="book"></paper-fab>
               </template>
               <template if="{{domain == 'tumblr.com'}}">
-                <paper-icon-button icon="social:post-tumblr"></paper-icon-button>
+                <paper-fab raised icon="social:post-tumblr"></paper-fab>
               </template>
               <template if="{{domain == 'vimeo.com'}}">
-                <paper-icon-button icon="image:movie-creation"></paper-icon-button>
+                <paper-fab raised icon="image:movie-creation"></paper-fab>
               </template>
               <!-- TODO foursquare -->
               <!-- TODO Tripit -->
@@ -113,7 +113,7 @@ This is a profile element that can fetch from Gravatar.
 
               <!-- Custom sites, I use title attribute to determine the icon to use, in this case the value attribute is used as the referenced URL. -->
               <template if="{{title == 'github.com'}}">
-                <paper-icon-button icon="social:post-github"></paper-icon-button>
+                <paper-fab raised icon="social:post-github"></paper-fab>
               </template>
             </a>
           </template>
