@@ -13,7 +13,7 @@ Add to bower.json:
 ```json
 {
   "dependencies": {
-    "gravatar-polymer-profile": "~0.1.0"
+    "gravatar-polymer-profile": "~0.2.0"
   }
 }
 ```
