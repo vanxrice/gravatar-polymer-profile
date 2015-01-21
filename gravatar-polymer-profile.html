@@ -5,7 +5,9 @@
 <link rel="import" href="../core-icons/maps-icons.html">
 <link rel="import" href="../core-icons/social-icons.html">
 <link rel="import" href="../core-image/core-image.html">
+
 <link rel="import" href="../font-roboto/roboto.html">
+
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-shadow/paper-shadow.html">
@@ -27,7 +29,7 @@ This is a profile element that can fetch from Gravatar.
 @demo http://vanxrice.github.io/gravatar-polymer-profile/components/gravatar-polymer-profile/demo.html
 -->
 
-<polymer-element name="gravatar-polymer-profile" attributes="hash" horizontal layout>
+<polymer-element name="gravatar-polymer-profile" attributes="hash">
 
   <template is="auto binding">
 
@@ -39,41 +41,35 @@ This is a profile element that can fetch from Gravatar.
 
     <paper-shadow z="3">
 
-      <div id="container" style="background-color: {{profileBackgroundColor}}; width: 375px;" vertical>
-        <div id="profile-header" horizontal wrap justified layout>
+      <div style="background-color: {{profileBackgroundColor}};">
+        <paper-spinner active></paper-spinner>
 
-          <paper-spinner active></paper-spinner>
+        <paper-button horizontal layout center disabled id="aboutMe" class="aboutMeButton text-button" raised noink on-click="{{toggleCollapse}}">
+          <div flex>About Me</div>
+          <core-icon id="aboutMeIcon" icon="expand-more"></core-icon>
+        </paper-button>
 
+        <div class="profile-header" horizontal layout>
           <template if="{{profileImgSrc}}">
-            <paper-shadow id="profileImgShadow" class="profile-img" on-tap="{{profileImgAnimate}}" z="0">
+            <paper-shadow class="profile-img" z="2">
               <core-image sizing="cover" fade src="{{profileImgSrc}}" class="profile-img"></core-image>
             </paper-shadow>
           </template>
 
-          <div id="profile-details" flex vertical layout>
-            <div flex horizontal end-justified end layout>
-              <div flex class="header-font" if="{{displayName}}">{{displayName}}</div>
-
-              <template if="{{aboutMe}}">
-                <paper-button id="aboutMeButton" raised noink class="header-detail-font" on-click="{{toggleCollapse}}">
-                  <div flex>About Me</div>
-                  <core-icon id="aboutMeCollapseIcon" icon="expand-more"></core-icon>
-                </paper-button>
-              </template>
-            </div>
-
+          <div class="profile-details" vertical layout>
+            <div class="text-display-1" if="{{displayName}}">{{displayName}}</div>
             <template if="{{currentLocation}}">
-              <div class="header-detail-font" if="{{currentLocation}}">
-                <core-icon id="maps-icon" icon="maps:pin-drop"></core-icon>
+              <div horizontal layout center class="text-subhead" if="{{currentLocation}}">
+                <core-icon class="maps-icon" icon="maps:pin-drop"></core-icon>
                 {{currentLocation}}
               </div>
             </template>
           </div>
         </div>
 
-        <core-collapse id="aboutMeCollapse" class="header-detail-font">{{aboutMe}}</core-collapse>
+        <core-collapse id="aboutMeCollapse" class="text-subhead">{{aboutMe}}</core-collapse>
 
-        <div id="profiles" horizontal around-justified layout wrap>
+        <div class="profiles" horizontal around-justified layout wrap>
           <template id="profile-tmpl" repeat="{{accounts}}">
             <a href="{{url || value}}" class="profiles-link">
               <!-- Gravatar officially supported and verified sites -->
@@ -143,26 +139,11 @@ This is a profile element that can fetch from Gravatar.
 
       toggleCollapse: function() {
         this.$.aboutMeCollapse.toggle();
-        var coreIcon = this.$.aboutMeCollapseIcon;
-        if (coreIcon.icon == 'expand-less') {
-          coreIcon.icon = 'expand-more';
+        var aboutMeIcon = this.$.aboutMeIcon;
+        if (aboutMeIcon.icon == 'expand-less') {
+          aboutMeIcon.icon = 'expand-more';
         } else {
-          coreIcon.icon = 'expand-less';
-        }
-      },
-
-      profileImgAnimate: function(e) { // TODO consider removing, set z=3
-        var profileShadow = this.shadowRoot.querySelector('#profileImgShadow');
-        if (!profileShadow.down) {
-          profileShadow.setZ(profileShadow.z + 1);
-          if (profileShadow.z === 5) {
-            profileShadow.down = true;
-          }
-        } else {
-          profileShadow.setZ(profileShadow.z - 1);
-          if (profileShadow.z === 0) {
-            profileShadow.down = false;
-          }
+          aboutMeIcon.icon = 'expand-less';
         }
       },
 
@@ -191,6 +172,7 @@ This is a profile element that can fetch from Gravatar.
 
               if (entry['aboutMe']) {
                 this.aboutMe = entry['aboutMe'];
+                this.$.aboutMe.disabled = false;
               }
 
               if (entry['profileBackground']) {
