@@ -1,26 +1,16 @@
-<link rel="import" href="../core-collapse/core-collapse.html">
-<link rel="import" href="../core-icon/core-icon.html">
-<link rel="import" href="../core-icons/core-icons.html">
-<link rel="import" href="../core-icons/image-icons.html">
-<link rel="import" href="../core-icons/maps-icons.html">
-<link rel="import" href="../core-icons/social-icons.html">
-<link rel="import" href="../core-image/core-image.html">
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
 
 <link rel="import" href="../font-roboto/roboto.html">
 
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-fab/paper-fab.html">
-<link rel="import" href="../paper-shadow/paper-shadow.html">
-<link rel="import" href="../paper-spinner/paper-spinner.html">
-<link rel="import" href="../polymer-jsonp/polymer-jsonp.html">
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="polymer-card-profile.html">
 
 <!--
-This is a profile element that can fetch from Gravatar.
+This is a profile custom element that can fetch from Gravatar. The polymer-card-profile can also be used standalone.
 
 ##### Example
 
-    <gravatar-polymer-profile hash="{{hash}}"></gravatar-polymer-profile>
+    <gravatar-polymer-profile hashOrUsername="{{vanxrice}}"></gravatar-polymer-profile>
 
 @element gravatar-polymer-profile
 @blurb This is a profile element that can fetch from Gravatar.
@@ -28,166 +18,51 @@ This is a profile element that can fetch from Gravatar.
 @homepage https://github.com/vanxrice/gravatar-polymer-profile
 @demo http://vanxrice.github.io/gravatar-polymer-profile/components/gravatar-polymer-profile/demo.html
 -->
-
-<polymer-element name="gravatar-polymer-profile" attributes="hash">
+<polymer-element name="gravatar-polymer-profile" attributes="hashOrUsername">
 
   <template is="auto binding">
 
     <link rel="stylesheet" href="gravatar-polymer-profile.css">
 
     <polymer-jsonp auto handleAs="json" response="{{response}}"
-      url="https://en.gravatar.com/{{hash}}.json?callback="
+      url="https://en.gravatar.com/{{hashOrUsername}}.json?callback="
       on-polymer-response="{{onResponse}}"></polymer-jsonp>
 
-    <paper-shadow z="3">
-
-      <div style="background-color: {{profileBackgroundColor}};">
-        <paper-spinner active></paper-spinner>
-
-        <paper-button horizontal layout center disabled id="aboutMe" class="aboutMeButton" raised noink on-click="{{toggleCollapse}}">
-          <div flex>About Me</div>
-          <core-icon id="aboutMeIcon" icon="expand-more"></core-icon>
-        </paper-button>
-
-        <div class="profile-header" horizontal layout>
-          <template if="{{profileImgSrc}}">
-            <paper-shadow class="profile-img" z="2">
-              <core-image sizing="cover" fade src="{{profileImgSrc}}" class="profile-img"></core-image>
-            </paper-shadow>
-          </template>
-
-          <div class="profile-details" vertical layout>
-            <div class="text-display-1" if="{{displayName}}">{{displayName}}</div>
-            <template if="{{currentLocation}}">
-              <div horizontal layout center class="text-subhead" if="{{currentLocation}}">
-                <core-icon class="maps-icon" icon="maps:pin-drop"></core-icon>
-                {{currentLocation}}
-              </div>
-            </template>
-          </div>
-        </div>
-
-        <core-collapse id="aboutMeCollapse" class="text-subhead">{{aboutMe}}</core-collapse>
-
-        <div class="profiles" horizontal around-justified layout wrap>
-          <template id="profile-tmpl" repeat="{{accounts}}">
-            <a href="{{url || value}}" class="profiles-link">
-              <!-- Gravatar officially supported and verified sites -->
-              <template if="{{domain == 'linkedin.com'}}">
-                  <paper-fab raised icon="social:post-linkedin"></core-icon>
-              </template>
-              <template if="{{domain == 'profiles.google.com' || domain == 'plus.google.com'}}">
-                <paper-fab raised icon="social:post-gplus"></paper-fab>
-              </template>
-              <template if="{{domain == 'blogger.com'}}">
-                <paper-fab raised icon="social:post-blogger"></paper-fab>
-              </template>
-              <template if="{{domain == 'twitter.com'}}">
-                <paper-fab raised icon="social:post-twitter"></paper-fab>
-              </template>
-              <template if="{{domain == 'facebook.com'}}">
-                <paper-fab raised icon="social:post-facebook"></paper-fab>
-              </template>
-              <template if="{{domain == 'youtube.com'}}">
-                <paper-fab raised icon="social:post-youtube"></paper-fab>
-              </template>
-              <template if="{{domain == 'instagram.com'}}">
-                <paper-fab raised icon="social:post-instagram"></paper-fab>
-              </template>
-              <template if="{{domain == 'flickr.com'}}">
-                <paper-fab raised icon="image:collections"></paper-fab>
-              </template>
-              <template if="{{domain == 'goodreads.com'}}">
-                <paper-fab raised icon="book"></paper-fab>
-              </template>
-              <template if="{{domain == 'tumblr.com'}}">
-                <paper-fab raised icon="social:post-tumblr"></paper-fab>
-              </template>
-              <template if="{{domain == 'vimeo.com'}}">
-                <paper-fab raised icon="image:movie-creation"></paper-fab>
-              </template>
-              <!-- TODO foursquare -->
-              <!-- TODO Tripit -->
-              <!-- TODO Wordpress -->
-              <!-- TODO Yahoo! -->
-
-              <!-- Custom sites, I use title attribute to determine the icon to use, in this case the value attribute is used as the referenced URL. -->
-              <template if="{{title == 'github.com'}}">
-                <paper-fab raised icon="social:post-github"></paper-fab>
-              </template>
-            </a>
-          </template>
-        </div>
-      
-        <content></content>
-    </div>
-  </paper-shadow>
-
+    <polymer-card-profile profile="{{gravatar}}" links="{{links}}">
+      <content></content>
+    </polymer-card-profile>
   </template>
 
   <script>
 
     Polymer('gravatar-polymer-profile', {
       /**
-       * The `hash` attribute sets the Gravatar hash to fetch, which is just an md5 of the desired email address. See: http://en.gravatar.com/site/implement/hash/
+       * The `hashOrUsername` attribute sets the Gravatar hash or username to fetch, the hash being just an md5 of the desired email address.
+       * See: http://en.gravatar.com/site/implement/hash/
        *
-       * @attribute hash
+       * @attribute hashOrUsername
        * @type string
        * @default ''
        */
-      hash: '',
-
-      toggleCollapse: function() {
-        this.$.aboutMeCollapse.toggle();
-        var aboutMeIcon = this.$.aboutMeIcon;
-        if (aboutMeIcon.icon == 'expand-less') {
-          aboutMeIcon.icon = 'expand-more';
-        } else {
-          aboutMeIcon.icon = 'expand-less';
-        }
-      },
+      hashOrUsername: '',
 
       onResponse: function(e) {
-        var json = e.detail.response;
-        if (json) {
-          var entry = json['entry'];
-          if (entry) {
-            var entry = entry[0];
-            if (entry) {
-              // remove spinner
-              var spinner = this.shadowRoot.querySelector('paper-spinner');
-              spinner.remove();
+        if (this.response && this.response.entry && this.response.entry.length === 1) {
+          this.gravatar = this.response.entry[0];
+          // console.log(this.gravatar);
 
-              if (entry['displayName']) {
-                this.displayName = entry['displayName'];
+          if (this.gravatar) {
+            var links = this.gravatar.accounts;
+            if (this.gravatar.urls) {
+              if (links) {
+                links = links.concat(this.gravatar.urls);
+              } else {
+                links = this.gravatar.urls;
               }
+            }
 
-              if (entry['currentLocation']) {
-                this.currentLocation = entry['currentLocation'];
-              }
-
-              if (entry['thumbnailUrl']) {
-                this.profileImgSrc = entry['thumbnailUrl'];
-              }
-
-              if (entry['aboutMe']) {
-                this.aboutMe = entry['aboutMe'];
-                this.$.aboutMe.disabled = false;
-              }
-
-              if (entry['profileBackground']) {
-                if (entry['profileBackground']['color']) {
-                  this.profileBackgroundColor = entry['profileBackground']['color'];
-                }
-              }
-
-              if (entry['accounts']) {
-                this.accounts = entry['accounts'];
-              }
-              if (entry['urls']) {
-                this.accounts = this.accounts.concat(entry['urls']);
-              }
-              this.accounts.sort(function(x, y) {
+            if (links) {
+              links.sort(function(x, y) {
                 var x1, y1;
                 x1 = x.domain || x.title;
                 y1 = y.domain || y.title;
@@ -199,6 +74,7 @@ This is a profile element that can fetch from Gravatar.
                 }
                 return 0;
               });
+              this.links = links;
             }
           }
         }

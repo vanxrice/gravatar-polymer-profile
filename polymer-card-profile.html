@@ -7,7 +7,6 @@
 <link rel="import" href="../core-icons/maps-icons.html">
 <link rel="import" href="../core-icons/social-icons.html">
 <link rel="import" href="../core-image/core-image.html">
-<link rel="import" href="../core-media-query/core-media-query.html">
 
 <link rel="import" href="../font-roboto/roboto.html">
 
@@ -28,7 +27,7 @@ This is a profile element that expects a profile object in the form returned by 
 @element polymer-card-profile
 @blurb This is a profile element that can fetch from Gravatar.
 @status beta
-@homepage https://github.com/vanxrice/gravatar-polymer-profile
+@homepage https://github.com/vanxrice/gravatar-polymer-profile/components/gravatar-polymer-profile
 @demo http://vanxrice.github.io/gravatar-polymer-profile/components/gravatar-polymer-profile/demo.html
 -->
 <polymer-element name="polymer-card-profile" attributes="profile links">
@@ -37,36 +36,43 @@ This is a profile element that expects a profile object in the form returned by 
 
     <link rel="stylesheet" href="gravatar-polymer-profile.css">
 
-    <core-media-query query="max-width: 640px" queryMatches="{{phoneScreen}}"></core-media-query>
-
     <paper-shadow z="3" style="background-color: {{profile.profileBackground.color}};">
 
-      <paper-spinner active?="{{!profile}}"></paper-spinner>
+      <template if="{{!profile}}">
+        <paper-spinner active?="{{!profile}}"></paper-spinner>
+      </template>
 
-      <paper-button horizontal layout center id="aboutMe" class="aboutMeButton" raised noink on-click="{{toggleCollapse}}">
-        <div flex>About Me</div>
-        <core-icon id="aboutMeIcon" icon="expand-more"></core-icon>
-      </paper-button>
+      <div class="profile-header" horizontal layout>
 
-      <div class="profile-header" vertical?="{{phoneScreen}}" horizontal?="{{!phoneScreen}}" layout>
-        <template if="{{profile.thumbnailUrl}}">
-          <paper-shadow class="profile-img" z="2">
-            <core-image sizing="cover" fade src="{{profile.thumbnailUrl}}" class="profile-img"></core-image>
-          </paper-shadow>
-        </template>
+        <div vertical layout>
+          <template if="{{profile.thumbnailUrl}}">
+            <paper-shadow class="profile-img" z="2">
+              <core-image sizing="cover" fade src="{{profile.thumbnailUrl}}" class="profile-img"></core-image>
+            </paper-shadow>
+          </template>
 
-        <div class="profile-details" vertical layout>
-          <div class="text-display-1">{{profile.displayName}}</div>
+          <div horizontal layout start-justified>
+            <paper-button horizontal layout id="aboutMe" class="aboutMeButton" raised noink on-click="{{toggleCollapse}}">
+              <div>About Me</div>
+              <core-icon id="aboutMeIcon" icon="expand-more"></core-icon>
+            </paper-button>
+          </div>
+        </div>
+
+        <div class="profile-details" vertical flex around-justified layout wrap>
+          <div class="text-headline">{{profile.displayName}}</div>
+
           <template if="{{profile.currentLocation}}">
             <div horizontal layout center class="text-subhead">
               <core-icon class="maps-icon" icon="maps:pin-drop"></core-icon>
               {{profile.currentLocation}}
             </div>
           </template>
+
         </div>
       </div>
 
-      <core-collapse id="aboutMeCollapse" class="text-subhead">{{profile.aboutMe}}</core-collapse>
+      <core-collapse id="aboutMeCollapse" class="text-body">{{profile.aboutMe}}</core-collapse>
 
       <div class="profiles" horizontal around-justified layout wrap>
         <template id="profile-tmpl" repeat="{{links as l}}">

@@ -6,6 +6,7 @@
 
   <script src="../webcomponentsjs/webcomponents.min.js"></script>
   <link rel="import" href="gravatar-polymer-profile.html">
+  <link rel="import" href="polymer-card-profile.html">
 
    <style>
     html,body {
@@ -14,13 +15,13 @@
       background-color: #E5E5E5;
       font-family: 'RobotoDraft', sans-serif;
     }
-    .container {
+    #container {
       width: 80%;
       margin: auto;
     }
-    @media (min-width: 481px) {
-      .container {
-        width: 400px;
+    @media (min-width: 381px) {
+      #container {
+        width: 300px;
       }
     }
     </style>
@@ -28,19 +29,40 @@
 </head>
 <body unresolved>
 
-  <div class="container" layout vertical center>
+  <div id="container" layout vertical center>
 
     <p>An example of using <code>&lt;gravatar-polymer-profile&gt;</code>:</p>
 
-    <gravatar-polymer-profile hash="47773d526fff21216fbc7ba03b18aeb2">
+    <gravatar-polymer-profile hashOrUsername="47773d526fff21216fbc7ba03b18aeb2">
       <div class="cb-tip-button" data-content-location="http://vxrice.com" data-href="//www.coinbase.com/tip_buttons/show_tip" data-to-user-id="5310c2f2b8c24e894c00035c"></div>
       <script>!function(d,s,id) {var js,cjs=d.getElementsByTagName(s)[0],e=d.getElementById(id);if(e){return;}js=d.createElement(s);js.id=id;js.src="https://www.coinbase.com/assets/tips.js";cjs.parentNode.insertBefore(js,cjs);}(document, 'script', 'coinbase-tips');</script>
     </gravatar-polymer-profile>
 
     <br>
 
-    <gravatar-polymer-profile hash="767fc9c115a1b989744c755db47feb60" styling="width: 500px;"></gravatar-polymer-profile>
+    <gravatar-polymer-profile hashOrUsername="matt"></gravatar-polymer-profile>
 
+    <br>
+
+    <gravatar-polymer-profile hashOrUsername="asdf"></gravatar-polymer-profile>
+
+    <br>
+
+    <p>The card may also be used without Gravatar:</p>
+    <script>
+      document.addEventListener('polymer-ready', function() {
+        console.log('ready');
+        var pcp = document.createElement('polymer-card-profile');
+        var profile = {};
+        profile.displayName = 'Vander';
+        profile.aboutMe = 'This is a demo';
+        profile.currentLocation = 'Mars';
+        profile.thumbnailUrl = 'https://secure.gravatar.com/avatar/47773d526fff21216fbc7ba03b18aeb2';
+        pcp.profile = profile;
+
+        document.getElementById('container').appendChild(pcp);
+      });
+    </script>
   </div>
 
 </body>

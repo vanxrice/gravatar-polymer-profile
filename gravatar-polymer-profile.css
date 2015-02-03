@@ -2,7 +2,6 @@
   display: block;
   position: relative;
   background-color: white;
-  padding: 20px;
   width: 100%;
   font-size: 1.2rem;
   font-weight: 300;
@@ -13,9 +12,9 @@ paper-fab {
   color: black;
   background-color: white;
   vertical-align: middle;
-  height: 90px;
-  width: 90px;
-  margin: 0 5px 0 5px;
+  height: 64px;
+  width: 64px;
+  margin: 0 5px 5px 5px;
 }
 
 paper-fab:hover {
@@ -51,14 +50,12 @@ paper-fab:hover {
 }
 
 .aboutMeButton {
-  position: absolute;
-  top: 5px;
-  right: 3px;
-  height: 10%;
+  height: 30px;
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 600;
   line-height: 32px;
+  margin-top: 10px;
 }
 
 #aboutMeIcon {
@@ -76,41 +73,9 @@ paper-fab:hover {
   margin-right: 5px;
 }
 
-.text-display-4 {
-  font-size: 112px;
-  font-weight: 300;
-  line-height: 128px;
-  letter-spacing: -5px;
-}
-
-.text-display-3 {
-  font-size: 56px;
-  font-weight: 400;
-  line-height: 64px;
-}
-
-.text-display-2 {
-  font-size: 45px;
-  font-weight: 400;
-  line-height: 64px;
-}
-
-.text-display-1 {
-  font-size: 34px;
-  font-weight: 400;
-  line-height: 52px;
-}
-
 .text-headline {
   font-size: 24px;
   font-weight: 400;
-  line-height: 44px;
-}
-
-.text-title {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 44px;
 }
 
 .text-subhead {
@@ -123,23 +88,4 @@ paper-fab:hover {
   font-size: 14px;
   font-weight: 400;
   line-height: 25px;
-}
-
-.text-caption {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 32px;
-}
-
-.text-menu {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 32px;
-}
-
-.text-button {
-  font-size: 14px;
-  text-transform: uppercase;
-  font-weight: 600;
-  line-height: 32px;
 }
