@@ -34,8 +34,13 @@
     <p>An example of using <code>&lt;gravatar-polymer-profile&gt;</code>:</p>
 
     <gravatar-polymer-profile hashOrUsername="47773d526fff21216fbc7ba03b18aeb2">
-      <div class="cb-tip-button" data-content-location="http://vxrice.com" data-href="//www.coinbase.com/tip_buttons/show_tip" data-to-user-id="5310c2f2b8c24e894c00035c"></div>
-      <script>!function(d,s,id) {var js,cjs=d.getElementsByTagName(s)[0],e=d.getElementById(id);if(e){return;}js=d.createElement(s);js.id=id;js.src="https://www.coinbase.com/assets/tips.js";cjs.parentNode.insertBefore(js,cjs);}(document, 'script', 'coinbase-tips');</script>
+      <div layout horizontal> 
+        <div style="margin-left: 10px;" flex id="changetip_tipme_button" data-bid="tr3kHWFnQWAPmLhAfeHWs5" data-uid="hYZE6AWYmLJFwm3MH7HNmn"></div>
+        <script>(function(document,script,id){var js,r=document.getElementsByTagName(script)[0],protocol=/^http:/.test(document.location)?'http':'https';if(!document.getElementById(id)){js=document.createElement(script);js.id=id;js.src=protocol+'://widgets.changetip.com/public/js/widgets.js';r.parentNode.insertBefore(js,r)}}(document,'script','changetip_w_0'));</script>
+
+        <div class="cb-tip-button" data-content-location="http://vxrice.com" data-href="//www.coinbase.com/tip_buttons/show_tip" data-to-user-id="5310c2f2b8c24e894c00035c"></div>
+        <script>!function(d,s,id) {var js,cjs=d.getElementsByTagName(s)[0],e=d.getElementById(id);if(e){return;}js=d.createElement(s);js.id=id;js.src="https://www.coinbase.com/assets/tips.js";cjs.parentNode.insertBefore(js,cjs);}(document, 'script', 'coinbase-tips');</script>
+      </div>
     </gravatar-polymer-profile>
 
     <br>
