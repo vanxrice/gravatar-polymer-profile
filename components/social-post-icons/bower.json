@@ -1,0 +1,26 @@
+{
+  "name": "social-post-icons",
+  "version": "0.1.0",
+  "description": "A Polymer iconset that provides social-post icons for use with core-icon",
+  "main": "social-post-icons.html",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "social-post-icons",
+    "iconset",
+    "social"
+  ],
+  "dependencies": {
+    "core-icon": "Polymer/core-icon",
+    "core-iconset-svg": "Polymer/core-iconset-svg",
+    "polymer": "Polymer/polymer"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

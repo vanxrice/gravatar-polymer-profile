@@ -1,0 +1,151 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../core-collapse/core-collapse.html">
+<link rel="import" href="../core-icon/core-icon.html">
+<link rel="import" href="../core-icons/core-icons.html">
+<link rel="import" href="../core-icons/image-icons.html">
+<link rel="import" href="../core-icons/maps-icons.html">
+<link rel="import" href="../core-icons/social-icons.html">
+<link rel="import" href="../core-image/core-image.html">
+
+<link rel="import" href="../font-roboto/roboto.html">
+
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+
+<link rel="import" href="../social-post-icons/social-post-icons.html">
+
+<!--
+This is a profile element that expects a profile object in the form returned by Gravatar.
+
+##### Example
+
+    <polymer-card-profile profile="{{gravatar}}"></polymer-card-profile>
+
+@element polymer-card-profile
+@blurb This is a profile element that can fetch from Gravatar.
+@status beta
+@homepage https://github.com/vanxrice/gravatar-polymer-profile/components/gravatar-polymer-profile
+@demo http://vanxrice.github.io/gravatar-polymer-profile/components/gravatar-polymer-profile/demo.html
+-->
+<polymer-element name="polymer-card-profile" attributes="profile links">
+
+  <template is="auto binding">
+
+    <link rel="stylesheet" href="gravatar-polymer-profile.css">
+
+    <paper-shadow z="3" style="background-color: {{profile.profileBackground.color}};">
+
+      <template if="{{!profile}}">
+        <paper-spinner active?="{{!profile}}"></paper-spinner>
+      </template>
+
+      <div class="profile-header" horizontal layout>
+
+        <div vertical layout>
+          <template if="{{profile.thumbnailUrl}}">
+            <paper-shadow class="profile-img" z="2">
+              <core-image sizing="cover" fade src="{{profile.thumbnailUrl}}" class="profile-img"></core-image>
+            </paper-shadow>
+          </template>
+
+          <div horizontal layout start-justified>
+            <paper-button horizontal layout id="aboutMe" class="aboutMeButton" raised noink on-click="{{toggleCollapse}}">
+              <div>About Me</div>
+              <core-icon id="aboutMeIcon" icon="expand-more"></core-icon>
+            </paper-button>
+          </div>
+        </div>
+
+        <div class="profile-details" vertical flex around-justified layout wrap>
+          <div class="text-headline">{{profile.displayName}}</div>
+
+          <template if="{{profile.currentLocation}}">
+            <div horizontal layout center class="text-subhead">
+              <core-icon class="maps-icon" icon="maps:pin-drop"></core-icon>
+              {{profile.currentLocation}}
+            </div>
+          </template>
+
+        </div>
+      </div>
+
+      <core-collapse id="aboutMeCollapse" class="text-body">{{profile.aboutMe}}</core-collapse>
+
+      <div class="profiles" horizontal around-justified layout wrap>
+        <template id="profile-tmpl" repeat="{{links as l}}">
+          <a href="{{l.url || l.value}}" class="profiles-link">
+            <paper-fab raised icon="{{getLinkIcon(l.domain || l.title)}}"></paper-fab>
+          </a>
+        </template>
+      </div>
+      
+      <content></content>
+    </paper-shadow>
+
+  </template>
+
+  <script>
+
+    Polymer('polymer-card-profile', {
+      /**
+       * The `profile` attribute sets the profile object, expected in the form returned by Gravatar
+       *
+       * @attribute profile
+       * @type object
+       * @default null
+       */
+      profile: null,
+
+      /**
+       * The `links` attribute sets the links array, expected in the form returned by Gravatar
+       *
+       * @attribute links
+       * @type object
+       * @default null
+       */
+      links: null,
+
+      toggleCollapse: function() {
+        this.$.aboutMeCollapse.toggle();
+        var aboutMeIcon = this.$.aboutMeIcon;
+        if (aboutMeIcon.icon == 'expand-less') {
+          aboutMeIcon.icon = 'expand-more';
+        } else {
+          aboutMeIcon.icon = 'expand-less';
+        }
+      },
+
+      getLinkIcon: function(linkDomain) {
+        // console.log(linkDomain);
+        switch(linkDomain) {
+          case 'linkedin.com': return 'social-post:linkedin';
+          case 'instagram.com': return 'social-post:instagram';
+          case 'tumblr.com': return 'social-post:tumblr';
+          case 'youtube.com': return 'social-post:youtube';
+          case 'facebook.com': return 'social-post:facebook';
+          case 'blogger.com': return 'social-post:blogger';
+          case 'twitter.com': return 'social-post:twitter';
+          case 'plus.google.com': case 'profiles.google.com': return 'social-post:gplus';
+          // TODO foursquare
+          // TODO Tripit
+          // TODO Wordpress
+          // TODO Yahoo!
+          // TODO give these proper icons
+          case 'flickr.com': return 'image:collections';
+          case 'goodreads.com': return 'book';
+          case 'vimeo.com': return 'image:movie-creation';
+          // Gravatar unsupported sites, determined by the url.title attribute which is passed in as linkDomain
+          case 'github.com': return 'social-post:github';
+
+          default: return 'link';
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>

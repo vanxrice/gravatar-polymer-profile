@@ -1,0 +1,38 @@
+{
+  "name": "gravatar-polymer-profile",
+  "version": "0.2.1",
+  "homepage": "https://github.com/vanxrice/gravatar-polymer-profile",
+  "authors": [
+    "Vander Rice"
+  ],
+  "description": "A Polymer element that fetches a gravatar profile as JSON and displays",
+  "keywords": [
+    "Polymer",
+    "web-component",
+    "web-components",
+    "gravatar"
+  ],
+  "main": "gravatar-polymer-profile.html",
+  "license": "Apache License v2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5.4",
+    "core-collapse": "Polymer/core-collapse#~0.5.4",
+    "core-image": "Polymer/core-image#~0.5.4",
+    "font-roboto": "Polymer/font-roboto#~0.5.4",
+    "paper-button": "Polymer/paper-button#~0.5.4",
+    "paper-spinner": "Polymer/paper-spinner#~0.5.4",
+    "paper-fab": "Polymer/paper-fab#~0.5.4",
+    "polymer-jsonp": "Polymer/polymer-jsonp#~0.3.0",
+    "social-post-icons": "~0.1.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.0.5"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "gravatar-polymer-profile#gh-pages",
+  "private": true,
+  "resolutions": {
+    "polymer": "^0.5.4",
+    "core-component-page": "^0.5"
+  },
+  "dependencies": {
+    "gravatar-polymer-profile": "vanxrice/gravatar-polymer-profile#master"
+  }
+}

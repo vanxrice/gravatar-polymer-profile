@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  position: relative;
+  background-color: white;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-family: 'RobotoDraft', sans-serif;
+}
+
+paper-fab {
+  color: black;
+  background-color: white;
+  vertical-align: middle;
+  height: 64px;
+  width: 64px;
+  margin: 0 5px 5px 5px;
+}
+
+paper-fab:hover {
+  color: #666666;
+  background: #eee;
+  border-radius: 50%;
+}
+
+.profiles-link > paper-fab /deep/ core-icon[role=img] {
+  height: 100%;
+  width: 100%;
+}
+
+.profile-header {
+  margin-bottom: 10px;
+  padding: 10px 10px 0 10px;
+}
+
+.profile-details {
+  margin-left: 10px;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 150px;
+  -webkit-border-radius: 150px;
+  -moz-border-radius: 150px;
+}
+
+.profiles {
+  padding-bottom: 10px;
+}
+
+.aboutMeButton {
+  height: 30px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 32px;
+  margin-top: 10px;
+}
+
+#aboutMeIcon {
+  height: 20px;
+  width: 20px;
+}
+
+#aboutMeCollapse {
+  margin: 0 10px 0 10px;
+}
+
+.maps-icon {
+  width: 26px;
+  height: 26px;
+  margin-right: 5px;
+}
+
+.text-headline {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.text-subhead {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.text-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 25px;
+}
